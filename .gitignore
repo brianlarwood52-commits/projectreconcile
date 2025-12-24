@@ -10,7 +10,7 @@
 
 # next.js
 /.next/
-/out/
+# /out/  # Commented out - we want to commit the out folder for Netlify
 
 # production
 /build

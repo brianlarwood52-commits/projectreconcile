@@ -5,13 +5,13 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'The Holy Spirit - Daytime Talk Show',
-  description: 'A Christian talk show exploring the work of the Holy Spirit',
+  title: 'PROJECT RECONCILE - Reconciliation Through the Holy Spirit',
+  description: 'Practical steps for reconciliation guided by the transformative power of the Holy Spirit. Learn to heal relationships, restore trust, and find peace through divine wisdom.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Holy Spirit Talk Show',
+    title: 'PROJECT RECONCILE',
   },
 }
 

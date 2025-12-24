@@ -43,29 +43,27 @@ export default function Home() {
           <div className="title-wrapper">
             <h1 className="main-title">
               <span className="title-word" style={{ '--delay': '0s' } as React.CSSProperties}>
-                The
+                PROJECT
               </span>
               <span className="title-word highlight" style={{ '--delay': '0.2s' } as React.CSSProperties}>
-                Holy
-              </span>
-              <span className="title-word highlight" style={{ '--delay': '0.4s' } as React.CSSProperties}>
-                Spirit
+                RECONCILE
               </span>
             </h1>
             <div className="title-underline"></div>
           </div>
           
           <p className={`hero-subtitle ${isLoaded ? 'visible' : ''}`}>
-            <span className="subtitle-line">Where Divine Presence Meets</span>
-            <span className="subtitle-line">Everyday Conversations</span>
+            <span className="subtitle-line">Reconciliation Through</span>
+            <span className="subtitle-line">The Power of the Holy Spirit</span>
           </p>
 
           <div className="hero-description">
             <p className="description-text">
-              Experience the warmth, wisdom, and wonder of the Holy Spirit through 
-              heartfelt conversations that feel like sitting with a dear friend. 
-              Each moment is an invitation to discover how the Spirit moves, 
-              guides, and transforms our lives.
+              Discover practical steps for reconciliation in your relationships, 
+              guided by the transformative power of the Holy Spirit. Learn how to 
+              heal broken connections, restore trust, and find peace through divine 
+              wisdom and grace. Join us for heartfelt conversations that bring 
+              hope and healing to wounded hearts.
             </p>
           </div>
         </div>
@@ -82,47 +80,59 @@ export default function Home() {
       {/* Interactive Episode Cards */}
       <section className="episodes-section">
         <h2 className="section-title">
-          <span className="title-text">Featured Episodes</span>
+          <span className="title-text">Reconciliation Journey</span>
           <span className="title-underline-animated"></span>
         </h2>
 
         <div className="episodes-grid">
           {[
             {
-              title: "The Gift of the Holy Spirit",
-              description: "Discover the profound gift that transforms hearts and opens doors to divine connection. Join us for an intimate conversation about receiving and recognizing the Holy Spirit's presence in your life.",
-              theme: "gift",
+              title: "Step 1: Understanding the Holy Spirit's Role in Reconciliation",
+              description: "Discover how the Holy Spirit works in our hearts to prepare us for reconciliation. Learn to recognize the Spirit's gentle guidance as you take the first steps toward healing broken relationships. We'll explore how divine love opens doors that seemed permanently closed.",
+              theme: "foundation",
               color: "gold"
             },
             {
-              title: "Hearing the Still Small Voice",
-              description: "Learn to recognize the gentle whispers of the Spirit through scripture, prayer, and the quiet moments of your day. Practical wisdom for tuning your heart to hear God's voice.",
-              theme: "voice",
+              title: "Step 2: Examining Your Heart - Self-Reflection & Repentance",
+              description: "Before reaching out to others, we must first look inward. This episode guides you through honest self-examination, helping you identify your role in conflicts and embrace genuine repentance. The Holy Spirit illuminates areas that need healing within ourselves first.",
+              theme: "reflection",
               color: "rose"
             },
             {
-              title: "The Fruits of the Spirit",
-              description: "Explore how love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, and self-control blossom in our lives through the Spirit's transformative power.",
-              theme: "fruits",
+              title: "Step 3: Prayer & Seeking Divine Guidance",
+              description: "Learn how prayer becomes your foundation for reconciliation. Discover practical ways to seek the Holy Spirit's wisdom before approaching difficult conversations. We'll explore how prayer transforms our hearts and prepares us to be instruments of peace.",
+              theme: "prayer",
               color: "lavender"
             },
             {
-              title: "Walking in the Spirit Daily",
-              description: "Discover practical ways to invite the Holy Spirit into every moment—from morning routines to work, relationships, and quiet reflection. Make the Spirit your constant companion.",
-              theme: "walk",
+              title: "Step 4: Approaching with Humility & Grace",
+              description: "The Holy Spirit teaches us to approach reconciliation with humility rather than pride. Learn how to initiate conversations with grace, acknowledging your part while extending genuine love. Discover the power of a gentle, humble heart in opening doors to healing.",
+              theme: "humility",
               color: "sage"
             },
             {
-              title: "The Power of Prayer & Presence",
-              description: "Uncover how prayer becomes a living conversation with the Spirit, creating space for miracles, guidance, and profound peace in your daily life.",
-              theme: "prayer",
+              title: "Step 5: Active Listening & Understanding",
+              description: "True reconciliation requires listening with the heart, not just the ears. Learn how the Holy Spirit helps us truly hear others' pain and perspectives. We'll explore how understanding precedes healing and how divine wisdom guides our responses.",
+              theme: "listening",
               color: "amber"
             },
             {
-              title: "Spiritual Gifts & Calling",
-              description: "Explore the unique gifts the Spirit has given you and how to use them to serve others and fulfill your divine purpose with confidence and joy.",
-              theme: "gifts",
+              title: "Step 6: Forgiveness - Receiving & Extending",
+              description: "Forgiveness is at the heart of reconciliation, and it's only possible through the Holy Spirit's power. Discover how to receive God's forgiveness for yourself and extend it to others, even when it feels impossible. Learn the difference between forgiveness and trust.",
+              theme: "forgiveness",
               color: "peach"
+            },
+            {
+              title: "Step 7: Rebuilding Trust Through Consistent Action",
+              description: "Trust is rebuilt through consistent, Spirit-led actions over time. Learn practical ways to demonstrate genuine change and rebuild broken trust. We'll explore how the Holy Spirit empowers us to keep our commitments and show love through our actions.",
+              theme: "trust",
+              color: "gold"
+            },
+            {
+              title: "Step 8: Maintaining Reconciliation - Walking in the Spirit",
+              description: "Reconciliation isn't a one-time event—it's a daily walk. Discover how to maintain healed relationships through the ongoing work of the Holy Spirit. Learn to recognize and address conflicts early, before they become major divisions.",
+              theme: "maintenance",
+              color: "rose"
             }
           ].map((episode, index) => (
             <div 
@@ -132,7 +142,7 @@ export default function Home() {
             >
               <div className="card-glow"></div>
               <div className="card-content">
-                <div className="episode-number">Episode {String(index + 1).padStart(2, '0')}</div>
+                <div className="episode-number">Step {String(index + 1).padStart(2, '0')}</div>
                 <h3 className="episode-title">{episode.title}</h3>
                 <p className="episode-description">{episode.description}</p>
                 <button className="episode-button">
@@ -153,23 +163,23 @@ export default function Home() {
         <div className="quote-container">
           <div className="quote-mark quote-mark-left">"</div>
           <blockquote className="quote-text">
-            The Holy Spirit doesn't just visit us—<br />
-            <span className="quote-highlight">The Spirit makes a home in our hearts</span><br />
-            and transforms us from the inside out.
+            Reconciliation is not about who was right or wrong—<br />
+            <span className="quote-highlight">It's about allowing the Holy Spirit</span><br />
+            to heal what was broken and restore what was lost.
           </blockquote>
           <div className="quote-mark quote-mark-right">"</div>
         </div>
-        <div className="quote-attribution">— Inspired by Scripture</div>
+        <div className="quote-attribution">— PROJECT RECONCILE</div>
       </section>
 
       {/* Footer */}
       <footer className="site-footer">
         <div className="footer-content">
           <div className="footer-text">
-            <p className="footer-main">The Holy Spirit Talk Show</p>
-            <p className="footer-sub">Spreading divine love, one conversation at a time</p>
+            <p className="footer-main">PROJECT RECONCILE</p>
+            <p className="footer-sub">Reconciliation through the power of the Holy Spirit</p>
           </div>
-          <div className="footer-year">&copy; {new Date().getFullYear()}</div>
+          <div className="footer-year">&copy; {new Date().getFullYear()} PROJECT RECONCILE. All rights reserved.</div>
         </div>
         <div className="footer-glow"></div>
       </footer>
