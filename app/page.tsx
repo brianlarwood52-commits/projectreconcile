@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false)
   const [activeTestimonial, setActiveTestimonial] = useState(0)
+  const heroRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setIsVisible(true)
@@ -17,22 +18,22 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [])
 
-  // Scroll reveal animation
+  // Scroll reveal with dramatic animations
   useEffect(() => {
     const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
+      threshold: 0.2,
+      rootMargin: '0px'
     }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('revealed')
+          entry.target.classList.add('animate-in')
         }
       })
     }, observerOptions)
 
-    const elements = document.querySelectorAll('.reveal-on-scroll')
+    const elements = document.querySelectorAll('.animate-on-scroll')
     elements.forEach(el => observer.observe(el))
 
     return () => {
@@ -45,37 +46,37 @@ export default function Home() {
       number: '01',
       title: 'Understanding the Holy Spirit',
       description: 'Discover how the Holy Spirit prepares our hearts for reconciliation and opens doors to healing.',
-      icon: '✨'
+      image: '🙏'
     },
     {
       number: '02',
       title: 'Self-Reflection & Repentance',
       description: 'Learn to examine your heart honestly and embrace genuine repentance through the Spirit\'s guidance.',
-      icon: '💭'
+      image: '💭'
     },
     {
       number: '03',
       title: 'Prayer & Divine Guidance',
       description: 'Build your foundation for reconciliation through prayer and seeking the Holy Spirit\'s wisdom.',
-      icon: '🙏'
+      image: '✨'
     },
     {
       number: '04',
       title: 'Humility & Grace',
       description: 'Approach difficult conversations with humility, acknowledging your part while extending love.',
-      icon: '❤️'
+      image: '❤️'
     },
     {
       number: '05',
       title: 'Active Listening',
       description: 'Learn to truly hear others\' pain and perspectives through the Holy Spirit\'s help.',
-      icon: '👂'
+      image: '👂'
     },
     {
       number: '06',
       title: 'Forgiveness',
       description: 'Receive God\'s forgiveness and extend it to others through the Spirit\'s transformative power.',
-      icon: '🤝'
+      image: '🤝'
     }
   ]
 
@@ -106,70 +107,50 @@ export default function Home() {
     }
   ]
 
-  const resources = [
-    {
-      title: 'Reconciliation Guidebook',
-      description: 'Complete step-by-step guide with scripture references',
-      price: 'Free Download',
-      icon: '📖'
-    },
-    {
-      title: 'Prayer Journal',
-      description: 'Structured journal for your reconciliation journey',
-      price: 'Free Download',
-      icon: '📝'
-    },
-    {
-      title: 'Video Series',
-      description: '8-part video series covering each step in detail',
-      price: 'Watch Free',
-      icon: '🎥'
-    },
-    {
-      title: 'Community Support',
-      description: 'Join our online community for encouragement',
-      price: 'Join Free',
-      icon: '💬'
-    }
-  ]
-
   return (
     <div className="netlink-homepage">
-      {/* Hero Section */}
-      <section className={`hero-section ${isVisible ? 'visible' : ''}`}>
-        <div className="hero-background">
-          <div className="hero-shape hero-shape-1"></div>
-          <div className="hero-shape hero-shape-2"></div>
-          <div className="hero-shape hero-shape-3"></div>
-        </div>
-        <div className="container">
-          <div className="hero-content">
-            <div className="hero-badge reveal-on-scroll">
-              <span>PROJECT RECONCILE</span>
+      {/* Hero Section with Big Image Animation */}
+      <section className={`hero-section ${isVisible ? 'visible' : ''}`} ref={heroRef}>
+        <div className="hero-container">
+          <div className="hero-content-wrapper">
+            <div className="hero-text-content">
+              <div className="hero-badge animate-slide-right">
+                <span>PROJECT RECONCILE</span>
+              </div>
+              <h1 className="hero-title animate-slide-up">
+                Reconciliation Connects Hearts Through The Holy Spirit
+              </h1>
+              <p className="hero-description animate-slide-up-delay">
+                Discover practical steps for healing relationships, guided by the transformative power of the Holy Spirit. 
+                Learn how to restore trust, find peace, and experience divine reconciliation in your life.
+              </p>
+              <div className="hero-buttons animate-fade-in">
+                <button className="btn btn-primary">Start Your Journey</button>
+                <button className="btn btn-secondary">Watch Episodes</button>
+              </div>
             </div>
-            <h1 className="hero-title reveal-on-scroll">
-              Reconciliation Connects Hearts Through The Holy Spirit
-            </h1>
-            <p className="hero-description reveal-on-scroll">
-              Discover practical steps for healing relationships, guided by the transformative power of the Holy Spirit. 
-              Learn how to restore trust, find peace, and experience divine reconciliation in your life.
-            </p>
-            <div className="hero-buttons reveal-on-scroll">
-              <button className="btn btn-primary">Start Your Journey</button>
-              <button className="btn btn-secondary">Watch Episodes</button>
-            </div>
-            <div className="hero-scroll reveal-on-scroll">
-              <span>Scroll Down</span>
-              <div className="scroll-arrow"></div>
+            <div className="hero-image-container animate-slide-left">
+              <div className="hero-main-image">
+                <div className="image-placeholder">🕊️</div>
+              </div>
+              <div className="hero-floating-elements">
+                <div className="floating-element floating-1">✨</div>
+                <div className="floating-element floating-2">💫</div>
+                <div className="floating-element floating-3">🌟</div>
+              </div>
             </div>
           </div>
         </div>
+        <div className="hero-scroll-indicator">
+          <span>Scroll Down</span>
+          <div className="scroll-arrow"></div>
+        </div>
       </section>
 
-      {/* Reconciliation Steps Section */}
+      {/* Reconciliation Steps - Big Cards Sliding In */}
       <section className="steps-section">
         <div className="container">
-          <div className="section-header reveal-on-scroll">
+          <div className="section-header animate-on-scroll">
             <span className="section-badge">Reconciliation Journey</span>
             <h2 className="section-title">Find Your Path To Healing</h2>
             <p className="section-description">
@@ -180,134 +161,127 @@ export default function Home() {
             {reconciliationSteps.map((step, index) => (
               <div 
                 key={index} 
-                className="step-card reveal-on-scroll"
-                style={{ '--delay': `${index * 0.1}s` } as React.CSSProperties}
+                className={`step-card animate-on-scroll ${index % 2 === 0 ? 'slide-from-left' : 'slide-from-right'}`}
+                style={{ '--delay': `${index * 0.2}s` } as React.CSSProperties}
               >
-                <div className="step-number">{step.number}</div>
-                <div className="step-icon">{step.icon}</div>
-                <h3 className="step-title">{step.title}</h3>
-                <p className="step-description">{step.description}</p>
-                <button className="step-link">Learn More →</button>
+                <div className="step-image-large">
+                  <div className="step-image-content">{step.image}</div>
+                </div>
+                <div className="step-number-large">{step.number}</div>
+                <div className="step-content">
+                  <h3 className="step-title">{step.title}</h3>
+                  <p className="step-description">{step.description}</p>
+                  <button className="step-link">Learn More →</button>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* Testimonials - Big Images */}
       <section className="testimonials-section">
         <div className="container">
-          <div className="section-header reveal-on-scroll">
+          <div className="section-header animate-on-scroll">
             <span className="section-badge">Testimonials</span>
             <h2 className="section-title">Stories of Transformation</h2>
           </div>
-          <div className="testimonials-container reveal-on-scroll">
-            <div className="testimonials-grid">
+          <div className="testimonials-showcase animate-on-scroll">
+            <div className="testimonial-main">
               {testimonials.map((testimonial, index) => (
                 <div 
                   key={index}
-                  className={`testimonial-card ${activeTestimonial === index ? 'active' : ''}`}
-                  onClick={() => setActiveTestimonial(index)}
+                  className={`testimonial-large ${activeTestimonial === index ? 'active' : ''}`}
                 >
-                  <div className="testimonial-image">{testimonial.image}</div>
-                  <p className="testimonial-text">"{testimonial.text}"</p>
-                  <div className="testimonial-author">
-                    <h4>{testimonial.name}</h4>
-                    <span>{testimonial.role}</span>
+                  <div className="testimonial-image-large">
+                    <div className="testimonial-avatar">{testimonial.image}</div>
+                  </div>
+                  <div className="testimonial-content-large">
+                    <p className="testimonial-quote">"{testimonial.text}"</p>
+                    <div className="testimonial-author-large">
+                      <h4>{testimonial.name}</h4>
+                      <span>{testimonial.role}</span>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="testimonial-indicators">
-              {testimonials.map((_, index) => (
-                <button
+            <div className="testimonial-thumbnails">
+              {testimonials.map((testimonial, index) => (
+                <div 
                   key={index}
-                  className={`indicator ${activeTestimonial === index ? 'active' : ''}`}
+                  className={`testimonial-thumb ${activeTestimonial === index ? 'active' : ''}`}
                   onClick={() => setActiveTestimonial(index)}
-                />
+                >
+                  <div className="thumb-avatar">{testimonial.image}</div>
+                </div>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* What We Do Section */}
+      {/* What We Do - Big Icon Cards */}
       <section className="services-section">
         <div className="container">
-          <div className="section-header reveal-on-scroll">
+          <div className="section-header animate-on-scroll">
             <span className="section-badge">What We Do</span>
             <h2 className="section-title">Discover Our Reconciliation Resources</h2>
             <p className="section-description">
               Everything you need to begin and continue your journey toward healing and restoration.
             </p>
           </div>
-          <div className="services-grid">
+          <div className="services-grid-large">
             {[
               {
                 icon: '📺',
                 title: 'Video Episodes',
-                description: 'Watch our talk show episodes covering each step of reconciliation in depth.'
+                description: 'Watch our talk show episodes covering each step of reconciliation in depth.',
+                color: 'purple'
               },
               {
                 icon: '📚',
                 title: 'Guided Resources',
-                description: 'Download our comprehensive guides and workbooks for your journey.'
+                description: 'Download our comprehensive guides and workbooks for your journey.',
+                color: 'pink'
               },
               {
                 icon: '💬',
                 title: 'Community Support',
-                description: 'Join others walking the same path in our supportive online community.'
+                description: 'Join others walking the same path in our supportive online community.',
+                color: 'blue'
               },
               {
                 icon: '🙏',
                 title: 'Prayer Support',
-                description: 'Receive prayer and encouragement from our ministry team.'
+                description: 'Receive prayer and encouragement from our ministry team.',
+                color: 'green'
               },
               {
                 icon: '📖',
                 title: 'Scripture Studies',
-                description: 'Deep dive into biblical principles of reconciliation and forgiveness.'
+                description: 'Deep dive into biblical principles of reconciliation and forgiveness.',
+                color: 'orange'
               },
               {
                 icon: '🎯',
                 title: 'Personal Guidance',
-                description: 'Get personalized help navigating your specific reconciliation situation.'
+                description: 'Get personalized help navigating your specific reconciliation situation.',
+                color: 'teal'
               }
             ].map((service, index) => (
               <div 
                 key={index}
-                className="service-card reveal-on-scroll"
-                style={{ '--delay': `${index * 0.1}s` } as React.CSSProperties}
+                className={`service-card-large animate-on-scroll ${index % 2 === 0 ? 'slide-from-left' : 'slide-from-right'}`}
+                style={{ '--delay': `${index * 0.15}s` } as React.CSSProperties}
+                data-color={service.color}
               >
-                <div className="service-icon">{service.icon}</div>
-                <h3 className="service-title">{service.title}</h3>
-                <p className="service-description">{service.description}</p>
-                <button className="service-link">Learn More →</button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Resources Showcase */}
-      <section className="resources-section">
-        <div className="container">
-          <div className="section-header reveal-on-scroll">
-            <span className="section-badge">Free Resources</span>
-            <h2 className="section-title">Hand-Picked Tools For Your Journey</h2>
-          </div>
-          <div className="resources-grid">
-            {resources.map((resource, index) => (
-              <div 
-                key={index}
-                className="resource-card reveal-on-scroll"
-                style={{ '--delay': `${index * 0.1}s` } as React.CSSProperties}
-              >
-                <div className="resource-icon">{resource.icon}</div>
-                <h3 className="resource-title">{resource.title}</h3>
-                <p className="resource-description">{resource.description}</p>
-                <div className="resource-price">{resource.price}</div>
-                <button className="resource-button">Get Started</button>
+                <div className="service-icon-large">{service.icon}</div>
+                <div className="service-content-large">
+                  <h3 className="service-title-large">{service.title}</h3>
+                  <p className="service-description-large">{service.description}</p>
+                  <button className="service-button-large">Learn More →</button>
+                </div>
               </div>
             ))}
           </div>
@@ -317,24 +291,21 @@ export default function Home() {
       {/* Newsletter Section */}
       <section className="newsletter-section">
         <div className="container">
-          <div className="newsletter-content reveal-on-scroll">
-            <div className="newsletter-icon">📧</div>
-            <h2 className="newsletter-title">Get 10% Off Your First Resource</h2>
-            <p className="newsletter-description">
-              We're thrilled that you're interested in staying up-to-date with all the latest resources, 
-              updates, and encouragement from PROJECT RECONCILE. By subscribing to our newsletter.
+          <div className="newsletter-content-large animate-on-scroll slide-from-bottom">
+            <div className="newsletter-icon-large">📧</div>
+            <h2 className="newsletter-title-large">Get Resources Delivered To Your Inbox</h2>
+            <p className="newsletter-description-large">
+              Stay connected with PROJECT RECONCILE. Receive weekly encouragement, 
+              new resources, and updates on our latest episodes.
             </p>
-            <form className="newsletter-form">
+            <form className="newsletter-form-large">
               <input 
                 type="email" 
                 placeholder="Enter your email address" 
-                className="newsletter-input"
+                className="newsletter-input-large"
               />
-              <button type="submit" className="newsletter-button">Subscribe</button>
+              <button type="submit" className="newsletter-button-large">Subscribe Now</button>
             </form>
-            <p className="newsletter-note">
-              Subscribe today and receive wonderful resources for your reconciliation journey.
-            </p>
           </div>
         </div>
       </section>
