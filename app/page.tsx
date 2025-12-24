@@ -3,219 +3,385 @@
 import { useEffect, useState } from 'react'
 
 export default function Home() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+  const [activeTestimonial, setActiveTestimonial] = useState(0)
 
   useEffect(() => {
-    setIsLoaded(true)
+    setIsVisible(true)
     
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-    }
+    // Auto-rotate testimonials
+    const interval = setInterval(() => {
+      setActiveTestimonial((prev) => (prev + 1) % 4)
+    }, 5000)
     
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
+    return () => clearInterval(interval)
   }, [])
 
+  // Scroll reveal animation
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed')
+        }
+      })
+    }, observerOptions)
+
+    const elements = document.querySelectorAll('.reveal-on-scroll')
+    elements.forEach(el => observer.observe(el))
+
+    return () => {
+      elements.forEach(el => observer.unobserve(el))
+    }
+  }, [])
+
+  const reconciliationSteps = [
+    {
+      number: '01',
+      title: 'Understanding the Holy Spirit',
+      description: 'Discover how the Holy Spirit prepares our hearts for reconciliation and opens doors to healing.',
+      icon: '✨'
+    },
+    {
+      number: '02',
+      title: 'Self-Reflection & Repentance',
+      description: 'Learn to examine your heart honestly and embrace genuine repentance through the Spirit\'s guidance.',
+      icon: '💭'
+    },
+    {
+      number: '03',
+      title: 'Prayer & Divine Guidance',
+      description: 'Build your foundation for reconciliation through prayer and seeking the Holy Spirit\'s wisdom.',
+      icon: '🙏'
+    },
+    {
+      number: '04',
+      title: 'Humility & Grace',
+      description: 'Approach difficult conversations with humility, acknowledging your part while extending love.',
+      icon: '❤️'
+    },
+    {
+      number: '05',
+      title: 'Active Listening',
+      description: 'Learn to truly hear others\' pain and perspectives through the Holy Spirit\'s help.',
+      icon: '👂'
+    },
+    {
+      number: '06',
+      title: 'Forgiveness',
+      description: 'Receive God\'s forgiveness and extend it to others through the Spirit\'s transformative power.',
+      icon: '🤝'
+    }
+  ]
+
+  const testimonials = [
+    {
+      name: 'Sarah Johnson',
+      role: 'Marriage Counselor',
+      text: 'PROJECT RECONCILE has transformed how I approach reconciliation in my own relationships. The Holy Spirit-led steps are practical and powerful.',
+      image: '👩'
+    },
+    {
+      name: 'Michael Chen',
+      role: 'Pastor',
+      text: 'This ministry provides the clearest, most biblical approach to reconciliation I\'ve seen. The focus on the Holy Spirit\'s work is exactly what our church needed.',
+      image: '👨'
+    },
+    {
+      name: 'Emily Rodriguez',
+      role: 'Family Therapist',
+      text: 'The step-by-step process has helped countless families in my practice. The emphasis on prayer and humility makes all the difference.',
+      image: '👩‍🦰'
+    },
+    {
+      name: 'David Thompson',
+      role: 'Small Group Leader',
+      text: 'We\'ve used these principles in our small group and seen incredible healing. The Holy Spirit truly moves when we follow these steps.',
+      image: '👨‍🦱'
+    }
+  ]
+
+  const resources = [
+    {
+      title: 'Reconciliation Guidebook',
+      description: 'Complete step-by-step guide with scripture references',
+      price: 'Free Download',
+      icon: '📖'
+    },
+    {
+      title: 'Prayer Journal',
+      description: 'Structured journal for your reconciliation journey',
+      price: 'Free Download',
+      icon: '📝'
+    },
+    {
+      title: 'Video Series',
+      description: '8-part video series covering each step in detail',
+      price: 'Watch Free',
+      icon: '🎥'
+    },
+    {
+      title: 'Community Support',
+      description: 'Join our online community for encouragement',
+      price: 'Join Free',
+      icon: '💬'
+    }
+  ]
+
   return (
-    <div className="holy-spirit-container">
-      {/* Animated Background Layers */}
-      <div className="animated-background">
-        <div className="spirit-particles"></div>
-        <div className="floating-lights">
-          {[...Array(12)].map((_, i) => (
-            <div key={i} className="floating-light" style={{ 
-              '--delay': `${i * 0.5}s`,
-              '--duration': `${15 + i * 2}s`,
-              '--x': `${Math.random() * 100}%`,
-            } as React.CSSProperties}></div>
-          ))}
-        </div>
-        <div className="gradient-orb" style={{
-          left: `${mousePosition.x}px`,
-          top: `${mousePosition.y}px`,
-        }}></div>
-      </div>
-
+    <div className="netlink-homepage">
       {/* Hero Section */}
-      <section className={`hero-section ${isLoaded ? 'loaded' : ''}`}>
-        <div className="hero-content">
-          <div className="title-wrapper">
-            <h1 className="main-title">
-              <span className="title-word" style={{ '--delay': '0s' } as React.CSSProperties}>
-                PROJECT
-              </span>
-              <span className="title-word highlight" style={{ '--delay': '0.2s' } as React.CSSProperties}>
-                RECONCILE
-              </span>
+      <section className={`hero-section ${isVisible ? 'visible' : ''}`}>
+        <div className="hero-background">
+          <div className="hero-shape hero-shape-1"></div>
+          <div className="hero-shape hero-shape-2"></div>
+          <div className="hero-shape hero-shape-3"></div>
+        </div>
+        <div className="container">
+          <div className="hero-content">
+            <div className="hero-badge reveal-on-scroll">
+              <span>PROJECT RECONCILE</span>
+            </div>
+            <h1 className="hero-title reveal-on-scroll">
+              Reconciliation Connects Hearts Through The Holy Spirit
             </h1>
-            <div className="title-underline"></div>
+            <p className="hero-description reveal-on-scroll">
+              Discover practical steps for healing relationships, guided by the transformative power of the Holy Spirit. 
+              Learn how to restore trust, find peace, and experience divine reconciliation in your life.
+            </p>
+            <div className="hero-buttons reveal-on-scroll">
+              <button className="btn btn-primary">Start Your Journey</button>
+              <button className="btn btn-secondary">Watch Episodes</button>
+            </div>
+            <div className="hero-scroll reveal-on-scroll">
+              <span>Scroll Down</span>
+              <div className="scroll-arrow"></div>
+            </div>
           </div>
-          
-          <p className={`hero-subtitle ${isLoaded ? 'visible' : ''}`}>
-            <span className="subtitle-line">Reconciliation Through</span>
-            <span className="subtitle-line">The Power of the Holy Spirit</span>
-          </p>
+        </div>
+      </section>
 
-          <div className="hero-description">
-            <p className="description-text">
-              Discover practical steps for reconciliation in your relationships, 
-              guided by the transformative power of the Holy Spirit. Learn how to 
-              heal broken connections, restore trust, and find peace through divine 
-              wisdom and grace. Join us for heartfelt conversations that bring 
-              hope and healing to wounded hearts.
+      {/* Reconciliation Steps Section */}
+      <section className="steps-section">
+        <div className="container">
+          <div className="section-header reveal-on-scroll">
+            <span className="section-badge">Reconciliation Journey</span>
+            <h2 className="section-title">Find Your Path To Healing</h2>
+            <p className="section-description">
+              Each step is guided by the Holy Spirit, leading you toward complete reconciliation and restored relationships.
             </p>
           </div>
-        </div>
-
-        {/* Decorative Elements */}
-        <div className="decorative-elements">
-          <div className="sparkle sparkle-1"></div>
-          <div className="sparkle sparkle-2"></div>
-          <div className="sparkle sparkle-3"></div>
-          <div className="sparkle sparkle-4"></div>
-        </div>
-      </section>
-
-      {/* Interactive Episode Cards */}
-      <section className="episodes-section">
-        <h2 className="section-title">
-          <span className="title-text">Reconciliation Journey</span>
-          <span className="title-underline-animated"></span>
-        </h2>
-
-        <div className="episodes-grid">
-          {[
-            {
-              title: "Step 1: Understanding the Holy Spirit's Role in Reconciliation",
-              description: "Discover how the Holy Spirit works in our hearts to prepare us for reconciliation. Learn to recognize the Spirit's gentle guidance as you take the first steps toward healing broken relationships. We'll explore how divine love opens doors that seemed permanently closed.",
-              theme: "foundation",
-              color: "gold"
-            },
-            {
-              title: "Step 2: Examining Your Heart - Self-Reflection & Repentance",
-              description: "Before reaching out to others, we must first look inward. This episode guides you through honest self-examination, helping you identify your role in conflicts and embrace genuine repentance. The Holy Spirit illuminates areas that need healing within ourselves first.",
-              theme: "reflection",
-              color: "rose"
-            },
-            {
-              title: "Step 3: Prayer & Seeking Divine Guidance",
-              description: "Learn how prayer becomes your foundation for reconciliation. Discover practical ways to seek the Holy Spirit's wisdom before approaching difficult conversations. We'll explore how prayer transforms our hearts and prepares us to be instruments of peace.",
-              theme: "prayer",
-              color: "lavender"
-            },
-            {
-              title: "Step 4: Approaching with Humility & Grace",
-              description: "The Holy Spirit teaches us to approach reconciliation with humility rather than pride. Learn how to initiate conversations with grace, acknowledging your part while extending genuine love. Discover the power of a gentle, humble heart in opening doors to healing.",
-              theme: "humility",
-              color: "sage"
-            },
-            {
-              title: "Step 5: Active Listening & Understanding",
-              description: "True reconciliation requires listening with the heart, not just the ears. Learn how the Holy Spirit helps us truly hear others' pain and perspectives. We'll explore how understanding precedes healing and how divine wisdom guides our responses.",
-              theme: "listening",
-              color: "amber"
-            },
-            {
-              title: "Step 6: Forgiveness - Receiving & Extending",
-              description: "Forgiveness is at the heart of reconciliation, and it's only possible through the Holy Spirit's power. Discover how to receive God's forgiveness for yourself and extend it to others, even when it feels impossible. Learn the difference between forgiveness and trust.",
-              theme: "forgiveness",
-              color: "peach"
-            },
-            {
-              title: "Step 7: Rebuilding Trust Through Consistent Action",
-              description: "Trust is rebuilt through consistent, Spirit-led actions over time. Learn practical ways to demonstrate genuine change and rebuild broken trust. We'll explore how the Holy Spirit empowers us to keep our commitments and show love through our actions.",
-              theme: "trust",
-              color: "gold"
-            },
-            {
-              title: "Step 8: Maintaining Reconciliation - Walking in the Spirit",
-              description: "Reconciliation isn't a one-time event—it's a daily walk. Discover how to maintain healed relationships through the ongoing work of the Holy Spirit. Learn to recognize and address conflicts early, before they become major divisions.",
-              theme: "maintenance",
-              color: "rose"
-            }
-          ].map((episode, index) => (
-            <div 
-              key={index} 
-              className={`episode-card card-${episode.color}`}
-              style={{ '--card-delay': `${index * 0.1}s` } as React.CSSProperties}
-            >
-              <div className="card-glow"></div>
-              <div className="card-content">
-                <div className="episode-number">Step {String(index + 1).padStart(2, '0')}</div>
-                <h3 className="episode-title">{episode.title}</h3>
-                <p className="episode-description">{episode.description}</p>
-                <button className="episode-button">
-                  <span>Watch Now</span>
-                  <svg className="button-arrow" viewBox="0 0 24 24" fill="none">
-                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
-                </button>
-              </div>
-              <div className="card-pattern"></div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Together Section - Inspired by Drew's Show */}
-      <section className="together-section">
-        <div className="together-container">
-          <h2 className="together-title">We Get To</h2>
-          <div className="together-words">
-            {[
-              'heal together',
-              'forgive together',
-              'restore together',
-              'love together',
-              'grow together',
-              'pray together',
-              'understand together',
-              'reconcile together',
-              'hope together',
-              'peace together',
-              'trust together',
-              'flourish together',
-              'bless together',
-              'transform together',
-              'unite together'
-            ].map((word, index) => (
-              <span 
+          <div className="steps-grid">
+            {reconciliationSteps.map((step, index) => (
+              <div 
                 key={index} 
-                className="together-word"
-                style={{ '--delay': `${index * 0.15}s` } as React.CSSProperties}
+                className="step-card reveal-on-scroll"
+                style={{ '--delay': `${index * 0.1}s` } as React.CSSProperties}
               >
-                {word}
-              </span>
+                <div className="step-number">{step.number}</div>
+                <div className="step-icon">{step.icon}</div>
+                <h3 className="step-title">{step.title}</h3>
+                <p className="step-description">{step.description}</p>
+                <button className="step-link">Learn More →</button>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Inspirational Quote Section */}
-      <section className="quote-section">
-        <div className="quote-container">
-          <div className="quote-mark quote-mark-left">"</div>
-          <blockquote className="quote-text">
-            Reconciliation is not about who was right or wrong—<br />
-            <span className="quote-highlight">It's about allowing the Holy Spirit</span><br />
-            to heal what was broken and restore what was lost.
-          </blockquote>
-          <div className="quote-mark quote-mark-right">"</div>
+      {/* Testimonials Section */}
+      <section className="testimonials-section">
+        <div className="container">
+          <div className="section-header reveal-on-scroll">
+            <span className="section-badge">Testimonials</span>
+            <h2 className="section-title">Stories of Transformation</h2>
+          </div>
+          <div className="testimonials-container reveal-on-scroll">
+            <div className="testimonials-grid">
+              {testimonials.map((testimonial, index) => (
+                <div 
+                  key={index}
+                  className={`testimonial-card ${activeTestimonial === index ? 'active' : ''}`}
+                  onClick={() => setActiveTestimonial(index)}
+                >
+                  <div className="testimonial-image">{testimonial.image}</div>
+                  <p className="testimonial-text">"{testimonial.text}"</p>
+                  <div className="testimonial-author">
+                    <h4>{testimonial.name}</h4>
+                    <span>{testimonial.role}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="testimonial-indicators">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  className={`indicator ${activeTestimonial === index ? 'active' : ''}`}
+                  onClick={() => setActiveTestimonial(index)}
+                />
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="quote-attribution">— PROJECT RECONCILE</div>
+      </section>
+
+      {/* What We Do Section */}
+      <section className="services-section">
+        <div className="container">
+          <div className="section-header reveal-on-scroll">
+            <span className="section-badge">What We Do</span>
+            <h2 className="section-title">Discover Our Reconciliation Resources</h2>
+            <p className="section-description">
+              Everything you need to begin and continue your journey toward healing and restoration.
+            </p>
+          </div>
+          <div className="services-grid">
+            {[
+              {
+                icon: '📺',
+                title: 'Video Episodes',
+                description: 'Watch our talk show episodes covering each step of reconciliation in depth.'
+              },
+              {
+                icon: '📚',
+                title: 'Guided Resources',
+                description: 'Download our comprehensive guides and workbooks for your journey.'
+              },
+              {
+                icon: '💬',
+                title: 'Community Support',
+                description: 'Join others walking the same path in our supportive online community.'
+              },
+              {
+                icon: '🙏',
+                title: 'Prayer Support',
+                description: 'Receive prayer and encouragement from our ministry team.'
+              },
+              {
+                icon: '📖',
+                title: 'Scripture Studies',
+                description: 'Deep dive into biblical principles of reconciliation and forgiveness.'
+              },
+              {
+                icon: '🎯',
+                title: 'Personal Guidance',
+                description: 'Get personalized help navigating your specific reconciliation situation.'
+              }
+            ].map((service, index) => (
+              <div 
+                key={index}
+                className="service-card reveal-on-scroll"
+                style={{ '--delay': `${index * 0.1}s` } as React.CSSProperties}
+              >
+                <div className="service-icon">{service.icon}</div>
+                <h3 className="service-title">{service.title}</h3>
+                <p className="service-description">{service.description}</p>
+                <button className="service-link">Learn More →</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Resources Showcase */}
+      <section className="resources-section">
+        <div className="container">
+          <div className="section-header reveal-on-scroll">
+            <span className="section-badge">Free Resources</span>
+            <h2 className="section-title">Hand-Picked Tools For Your Journey</h2>
+          </div>
+          <div className="resources-grid">
+            {resources.map((resource, index) => (
+              <div 
+                key={index}
+                className="resource-card reveal-on-scroll"
+                style={{ '--delay': `${index * 0.1}s` } as React.CSSProperties}
+              >
+                <div className="resource-icon">{resource.icon}</div>
+                <h3 className="resource-title">{resource.title}</h3>
+                <p className="resource-description">{resource.description}</p>
+                <div className="resource-price">{resource.price}</div>
+                <button className="resource-button">Get Started</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="newsletter-section">
+        <div className="container">
+          <div className="newsletter-content reveal-on-scroll">
+            <div className="newsletter-icon">📧</div>
+            <h2 className="newsletter-title">Get 10% Off Your First Resource</h2>
+            <p className="newsletter-description">
+              We're thrilled that you're interested in staying up-to-date with all the latest resources, 
+              updates, and encouragement from PROJECT RECONCILE. By subscribing to our newsletter.
+            </p>
+            <form className="newsletter-form">
+              <input 
+                type="email" 
+                placeholder="Enter your email address" 
+                className="newsletter-input"
+              />
+              <button type="submit" className="newsletter-button">Subscribe</button>
+            </form>
+            <p className="newsletter-note">
+              Subscribe today and receive wonderful resources for your reconciliation journey.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* Footer */}
       <footer className="site-footer">
-        <div className="footer-content">
-          <div className="footer-text">
-            <p className="footer-main">PROJECT RECONCILE</p>
-            <p className="footer-sub">Reconciliation through the power of the Holy Spirit</p>
+        <div className="container">
+          <div className="footer-content">
+            <div className="footer-section">
+              <h3 className="footer-title">PROJECT RECONCILE</h3>
+              <p className="footer-description">
+                Reconciliation through the power of the Holy Spirit. 
+                Healing relationships, one step at a time.
+              </p>
+            </div>
+            <div className="footer-section">
+              <h4 className="footer-heading">Resources</h4>
+              <ul className="footer-links">
+                <li><a href="#">Watch Episodes</a></li>
+                <li><a href="#">Download Guides</a></li>
+                <li><a href="#">Join Community</a></li>
+                <li><a href="#">Request Prayer</a></li>
+              </ul>
+            </div>
+            <div className="footer-section">
+              <h4 className="footer-heading">About</h4>
+              <ul className="footer-links">
+                <li><a href="#">Our Story</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+              </ul>
+            </div>
+            <div className="footer-section">
+              <h4 className="footer-heading">Connect</h4>
+              <ul className="footer-links">
+                <li><a href="#">YouTube</a></li>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Email Us</a></li>
+              </ul>
+            </div>
           </div>
-          <div className="footer-year">&copy; {new Date().getFullYear()} PROJECT RECONCILE. All rights reserved.</div>
+          <div className="footer-bottom">
+            <p>&copy; {new Date().getFullYear()} PROJECT RECONCILE. All Rights Reserved.</p>
+          </div>
         </div>
-        <div className="footer-glow"></div>
       </footer>
     </div>
   )
