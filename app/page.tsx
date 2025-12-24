@@ -17,7 +17,7 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [])
 
-  // Scroll reveal with Netlink-style animations
+  // Scroll reveal animations
   useEffect(() => {
     const observerOptions = {
       threshold: 0.15,
@@ -39,45 +39,6 @@ export default function Home() {
       elements.forEach(el => observer.unobserve(el))
     }
   }, [])
-
-  const reconciliationSteps = [
-    {
-      number: '01',
-      title: 'Understanding the Holy Spirit',
-      description: 'Discover how the Holy Spirit prepares our hearts for reconciliation and opens doors to healing.',
-      icon: '🙏'
-    },
-    {
-      number: '02',
-      title: 'Self-Reflection & Repentance',
-      description: 'Learn to examine your heart honestly and embrace genuine repentance through the Spirit\'s guidance.',
-      icon: '💭'
-    },
-    {
-      number: '03',
-      title: 'Prayer & Divine Guidance',
-      description: 'Build your foundation for reconciliation through prayer and seeking the Holy Spirit\'s wisdom.',
-      icon: '✨'
-    },
-    {
-      number: '04',
-      title: 'Humility & Grace',
-      description: 'Approach difficult conversations with humility, acknowledging your part while extending love.',
-      icon: '❤️'
-    },
-    {
-      number: '05',
-      title: 'Active Listening',
-      description: 'Learn to truly hear others\' pain and perspectives through the Holy Spirit\'s help.',
-      icon: '👂'
-    },
-    {
-      number: '06',
-      title: 'Forgiveness',
-      description: 'Receive God\'s forgiveness and extend it to others through the Spirit\'s transformative power.',
-      icon: '🤝'
-    }
-  ]
 
   const testimonials = [
     {
@@ -108,153 +69,155 @@ export default function Home() {
 
   const services = [
     {
-      icon: '📺',
+      title: 'Prayer & Guidance',
+      description: 'Receive personalized prayer support and guidance for your reconciliation journey.',
+      image: '🙏'
+    },
+    {
       title: 'Video Episodes',
-      description: 'Watch our talk show episodes covering each step of reconciliation in depth.'
+      description: 'Watch our talk show episodes covering each step of reconciliation in depth.',
+      image: '📺'
     },
     {
-      icon: '📚',
-      title: 'Guided Resources',
-      description: 'Download our comprehensive guides and workbooks for your journey.'
+      title: 'Resource Library',
+      description: 'Access comprehensive guides, workbooks, and study materials for your journey.',
+      image: '📚'
     },
     {
-      icon: '💬',
       title: 'Community Support',
-      description: 'Join others walking the same path in our supportive online community.'
-    },
-    {
-      icon: '🙏',
-      title: 'Prayer Support',
-      description: 'Receive prayer and encouragement from our ministry team.'
-    },
-    {
-      icon: '📖',
-      title: 'Scripture Studies',
-      description: 'Deep dive into biblical principles of reconciliation and forgiveness.'
-    },
-    {
-      icon: '🎯',
-      title: 'Personal Guidance',
-      description: 'Get personalized help navigating your specific reconciliation situation.'
+      description: 'Join others walking the same path in our supportive online community.',
+      image: '💬'
     }
   ]
 
+  // Function to split text into spaced letters (like Netlink)
+  const spacedText = (text: string) => {
+    return text.split('').map((char, i) => (
+      <span key={i} className="spaced-letter">{char === ' ' ? '\u00A0' : char}</span>
+    ))
+  }
+
+  const nextTestimonial = () => {
+    setActiveTestimonial((prev) => (prev + 1) % 4)
+  }
+
+  const prevTestimonial = () => {
+    setActiveTestimonial((prev) => (prev - 1 + 4) % 4)
+  }
+
   return (
     <div className="netlink-homepage">
-      {/* Hero Section - Netlink Style */}
+      {/* Hero Section - Exact Netlink Structure */}
       <section className={`wdt-hero-section ${isVisible ? 'wdt-visible' : ''}`}>
         <div className="wdt-hero-container">
-          <div className="wdt-hero-content-wrapper">
-            <div className="wdt-hero-text wdt-animate-on-scroll wdt-slide-from-left">
-              <div className="wdt-hero-badge">
-                <span>PROJECT RECONCILE</span>
-              </div>
+          <div className="wdt-hero-content">
+            <div className="wdt-hero-text wdt-animate-on-scroll">
+              <div className="wdt-hero-badge">PROJECT RECONCILE</div>
               <h1 className="wdt-hero-title">
-                Reconciliation Connects Hearts Through The Holy Spirit
+                Reconciliation Connects Hearts{' '}
+                <span className="spaced-letters">
+                  {spacedText('Through The Holy Spirit')}
+                </span>
               </h1>
               <p className="wdt-hero-description">
                 Discover practical steps for healing relationships, guided by the transformative power of the Holy Spirit. 
                 Learn how to restore trust, find peace, and experience divine reconciliation in your life.
               </p>
               <div className="wdt-hero-buttons">
-                <button className="wdt-button wdt-button-primary">Start Your Journey</button>
-                <button className="wdt-button wdt-button-secondary">Watch Episodes</button>
+                <a href="#pricing" className="wdt-button wdt-button-primary">Start Now</a>
+                <a href="#resources" className="wdt-button wdt-button-secondary">
+                  Browse Resources
+                  <span className="button-arrow">→</span>
+                </a>
               </div>
             </div>
-            <div className="wdt-hero-image wdt-animate-on-scroll wdt-slide-from-right">
-              <div className="wdt-hero-image-wrapper">
-                <div className="wdt-hero-image-placeholder">🕊️</div>
-                <div className="wdt-hero-image-overlay"></div>
+            <div className="wdt-hero-cards wdt-animate-on-scroll">
+              <div className="wdt-hero-card">
+                <a href="#personal">
+                  <div className="wdt-hero-card-image">
+                    <span className="card-icon">🙏</span>
+                  </div>
+                  <h5 className="wdt-hero-card-title">Personal Journey</h5>
+                </a>
+              </div>
+              <div className="wdt-hero-card">
+                <a href="#relationships">
+                  <div className="wdt-hero-card-image">
+                    <span className="card-icon">❤️</span>
+                  </div>
+                  <h5 className="wdt-hero-card-title">Relationships</h5>
+                </a>
               </div>
             </div>
           </div>
-        </div>
-        <div className="wdt-scroll-down">
-          <div className="wdt-scroll-indicator">
-            <span>Scroll Down</span>
-            <div className="wdt-scroll-arrow wdt-bounce-custom"></div>
+          <div className="wdt-scroll-down">
+            <a href="#scroll-content" className="wdt-scroll-link">
+              <div className="wdt-scroll-icon">↓</div>
+              <span className="wdt-scroll-text">Scroll Down</span>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Reconciliation Steps - Netlink Icon Box Style */}
-      <section className="wdt-steps-section">
+      {/* Testimonials Section - Netlink Carousel Style */}
+      <section className="wdt-testimonials-section" id="scroll-content">
         <div className="wdt-container">
-          <div className="wdt-section-header wdt-animate-on-scroll">
-            <span className="wdt-section-badge">Reconciliation Journey</span>
-            <h2 className="wdt-section-title">Find Your Path To Healing</h2>
-            <p className="wdt-section-description">
-              Each step is guided by the Holy Spirit, leading you toward complete reconciliation and restored relationships.
-            </p>
-          </div>
-          <div className="wdt-steps-grid">
-            {reconciliationSteps.map((step, index) => (
-              <div 
-                key={index} 
-                className="wdt-icon-box wdt-animate-on-scroll"
-                style={{ '--delay': `${index * 0.15}s` } as React.CSSProperties}
-              >
-                <div className="wdt-icon-box-icon">
-                  <span>{step.icon}</span>
-                </div>
-                <div className="wdt-icon-box-number">{step.number}</div>
-                <h3 className="wdt-icon-box-title">{step.title}</h3>
-                <p className="wdt-icon-box-description">{step.description}</p>
-                <a href="#" className="wdt-icon-box-link">Learn More →</a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials - Netlink Style */}
-      <section className="wdt-testimonials-section">
-        <div className="wdt-container">
-          <div className="wdt-section-header wdt-animate-on-scroll">
-            <span className="wdt-section-badge">Testimonials</span>
-            <h2 className="wdt-section-title">Stories of Transformation</h2>
-          </div>
-          <div className="wdt-testimonials-showcase wdt-animate-on-scroll">
-            <div className="wdt-testimonial-main">
+          <div className="wdt-testimonials-carousel">
+            <div className="wdt-testimonials-wrapper">
               {testimonials.map((testimonial, index) => (
                 <div 
                   key={index}
-                  className={`wdt-testimonial-card ${activeTestimonial === index ? 'wdt-active' : ''}`}
+                  className={`wdt-testimonial-item ${activeTestimonial === index ? 'wdt-active' : ''}`}
                 >
-                  <div className="wdt-testimonial-image">
-                    <div className="wdt-testimonial-avatar">{testimonial.image}</div>
-                  </div>
                   <div className="wdt-testimonial-content">
-                    <p className="wdt-testimonial-text">"{testimonial.text}"</p>
-                    <div className="wdt-testimonial-author">
-                      <h4>{testimonial.name}</h4>
-                      <span>{testimonial.role}</span>
+                    <div className="wdt-testimonial-image">
+                      <span className="wdt-testimonial-avatar">{testimonial.image}</span>
+                    </div>
+                    <div className="wdt-testimonial-text-wrapper">
+                      <p className="wdt-testimonial-text">{testimonial.text}</p>
+                      <div className="wdt-testimonial-author">
+                        <h5>{testimonial.name}</h5>
+                        <span>{testimonial.role}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="wdt-testimonial-indicators">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  className={`wdt-indicator ${activeTestimonial === index ? 'wdt-active' : ''}`}
-                  onClick={() => setActiveTestimonial(index)}
-                />
-              ))}
+            <div className="wdt-carousel-controls">
+              <button 
+                className="wdt-carousel-prev" 
+                onClick={prevTestimonial}
+                aria-label="Previous testimonial"
+              >
+                ←
+              </button>
+              <button 
+                className="wdt-carousel-next" 
+                onClick={nextTestimonial}
+                aria-label="Next testimonial"
+              >
+                →
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services - Netlink Style */}
+      {/* Services Section - Netlink "What We Do" Style */}
       <section className="wdt-services-section">
         <div className="wdt-container">
           <div className="wdt-section-header wdt-animate-on-scroll">
-            <span className="wdt-section-badge">What We Do</span>
-            <h2 className="wdt-section-title">Discover Our Reconciliation Resources</h2>
+            <div className="wdt-section-badge">WHAT WE DO</div>
+            <h2 className="wdt-section-title">
+              Find Your Path To{' '}
+              <span className="spaced-letters">
+                {spacedText('Reconciliation')}
+              </span>
+            </h2>
             <p className="wdt-section-description">
-              Everything you need to begin and continue your journey toward healing and restoration.
+              Discover practical resources and guidance for your reconciliation journey, 
+              all centered on the transformative power of the Holy Spirit.
             </p>
           </div>
           <div className="wdt-services-grid">
@@ -262,36 +225,17 @@ export default function Home() {
               <div 
                 key={index}
                 className="wdt-service-card wdt-animate-on-scroll"
-                style={{ '--delay': `${index * 0.1}s` } as React.CSSProperties}
+                style={{ '--delay': `${index * 0.15}s` } as React.CSSProperties}
               >
-                <div className="wdt-service-icon">{service.icon}</div>
-                <h3 className="wdt-service-title">{service.title}</h3>
-                <p className="wdt-service-description">{service.description}</p>
-                <a href="#" className="wdt-service-link">Learn More →</a>
+                <div className="wdt-service-image">
+                  <span className="wdt-service-icon">{service.image}</span>
+                </div>
+                <div className="wdt-service-content">
+                  <h5 className="wdt-service-title">{service.title}</h5>
+                  <p className="wdt-service-description">{service.description}</p>
+                </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter - Netlink Style */}
-      <section className="wdt-newsletter-section">
-        <div className="wdt-container">
-          <div className="wdt-newsletter-content wdt-animate-on-scroll">
-            <div className="wdt-newsletter-icon">📧</div>
-            <h2 className="wdt-newsletter-title">Get Resources Delivered To Your Inbox</h2>
-            <p className="wdt-newsletter-description">
-              Stay connected with PROJECT RECONCILE. Receive weekly encouragement, 
-              new resources, and updates on our latest episodes.
-            </p>
-            <form className="wdt-newsletter-form">
-              <input 
-                type="email" 
-                placeholder="Enter your email address" 
-                className="wdt-newsletter-input"
-              />
-              <button type="submit" className="wdt-button wdt-button-primary">Subscribe Now</button>
-            </form>
           </div>
         </div>
       </section>
@@ -301,14 +245,21 @@ export default function Home() {
         <div className="wdt-container">
           <div className="wdt-footer-content">
             <div className="wdt-footer-section">
-              <h3 className="wdt-footer-title">PROJECT RECONCILE</h3>
+              <a href="/" className="wdt-footer-logo">PROJECT RECONCILE</a>
               <p className="wdt-footer-description">
                 Reconciliation through the power of the Holy Spirit. 
                 Healing relationships, one step at a time.
               </p>
+              <div className="wdt-footer-newsletter">
+                <input type="email" placeholder="Your Email" className="wdt-newsletter-input" />
+                <button className="wdt-newsletter-button">
+                  <span>→</span>
+                </button>
+              </div>
+              <p className="wdt-footer-newsletter-text">Subscribe today and get wonderful resources.</p>
             </div>
             <div className="wdt-footer-section">
-              <h4 className="wdt-footer-heading">Resources</h4>
+              <h5 className="wdt-footer-heading">Resources</h5>
               <ul className="wdt-footer-links">
                 <li><a href="#">Watch Episodes</a></li>
                 <li><a href="#">Download Guides</a></li>
@@ -317,7 +268,7 @@ export default function Home() {
               </ul>
             </div>
             <div className="wdt-footer-section">
-              <h4 className="wdt-footer-heading">About</h4>
+              <h5 className="wdt-footer-heading">About</h5>
               <ul className="wdt-footer-links">
                 <li><a href="#">Our Story</a></li>
                 <li><a href="#">Contact Us</a></li>
@@ -326,7 +277,7 @@ export default function Home() {
               </ul>
             </div>
             <div className="wdt-footer-section">
-              <h4 className="wdt-footer-heading">Connect</h4>
+              <h5 className="wdt-footer-heading">Connect</h5>
               <ul className="wdt-footer-links">
                 <li><a href="#">YouTube</a></li>
                 <li><a href="#">Facebook</a></li>
