@@ -158,6 +158,40 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Together Section - Inspired by Drew's Show */}
+      <section className="together-section">
+        <div className="together-container">
+          <h2 className="together-title">We Get To</h2>
+          <div className="together-words">
+            {[
+              'heal together',
+              'forgive together',
+              'restore together',
+              'love together',
+              'grow together',
+              'pray together',
+              'understand together',
+              'reconcile together',
+              'hope together',
+              'peace together',
+              'trust together',
+              'flourish together',
+              'bless together',
+              'transform together',
+              'unite together'
+            ].map((word, index) => (
+              <span 
+                key={index} 
+                className="together-word"
+                style={{ '--delay': `${index * 0.15}s` } as React.CSSProperties}
+              >
+                {word}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Inspirational Quote Section */}
       <section className="quote-section">
         <div className="quote-container">
