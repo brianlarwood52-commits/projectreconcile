@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 
@@ -8,13 +8,19 @@ export const metadata: Metadata = {
   title: 'The Holy Spirit - Daytime Talk Show',
   description: 'A Christian talk show exploring the work of the Holy Spirit',
   manifest: '/manifest.json',
-  themeColor: '#8b4513',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
     title: 'Holy Spirit Talk Show',
   },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#8b4513',
 }
 
 export default function RootLayout({
